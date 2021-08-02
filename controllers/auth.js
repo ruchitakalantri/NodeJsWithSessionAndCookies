@@ -1,14 +1,17 @@
 exports.getLogin = (req, res, next) => {
   // output req.get('Cookie') : loggedIn=true
-  console.log(req.get('Cookie').trim().split('=')[1]); // output : true
-  const isLoggedIn = req
-                      .get('Cookie')
-                      .trim()
-                      .split('=')[1] === 'true' ;
+  // console.log(req.get('Cookie').trim().split('=')[1]); // output : true
+  // const isLoggedIn = req
+  //                     .get('Cookie')
+  //                     .trim()
+  
+  console.log(req.session);
+  console.log(req.session.isLoggedIn);
+
   res.render('auth/login', {
     path: '/login',
     pageTitle: 'Login',
-    isAuthenticated : isLoggedIn
+    isAuthenticated : false
   });
   };
 
@@ -18,7 +21,10 @@ exports.getLogin = (req, res, next) => {
     //req.isLoggedIn = true;
 
     // Cookies
-    res.setHeader('Set-Cookie' , 'loggedIn=true')
+    //res.setHeader('Set-Cookie' , 'loggedIn=true')
+
+    //Session
+    req.session.isLoggedIn = true;
 
     //Redirect to the given url 
     res.redirect('/')
